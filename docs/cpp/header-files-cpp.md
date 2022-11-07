@@ -13,9 +13,9 @@ int x; // declaration
 x = 42; // use x
 ```
 
-The declaration tells the compiler whether the element is an **`int`**, a **`double`**, a **function**, a **`class`** or some other thing.  Furthermore, each name must be declared (directly or indirectly) in every .cpp file in which it is used. When you compile a program, each .cpp file is compiled independently into a compilation unit. The compiler has no knowledge of what names are declared in other compilation units. That means that if you define a class or function or global variable, you must provide a declaration of that thing in each additional .cpp file that uses it. Each declaration of that thing must be exactly identical in all files. A slight inconsistency will cause errors, or unintended behavior, when the linker attempts to merge all the compilation units into a single program.
+The declaration tells the compiler whether the element is an **`int`**, a **`double`**, a **function**, a **`class`** or some other thing. <ins>Furthermore, each name must be declared (directly or indirectly) in every .cpp file in which it is used. When you compile a program, each .cpp file is compiled independently into a compilation unit. The compiler has no knowledge of what names are declared in other compilation units. That means that if you define a class or function or global variable, you must provide a declaration of that thing in each additional .cpp file that uses it. Each declaration of that thing must be exactly identical in all files. A slight inconsistency will cause errors, or unintended behavior, when the linker attempts to merge all the compilation units into a single program.</ins>
 
-To minimize the potential for errors, C++ has adopted the convention of using *header files* to contain declarations. You make the declarations in a header file, then use the #include directive in every .cpp file or other header file that requires that declaration. The #include directive inserts a copy of the header file directly into the .cpp file prior to compilation.
+<ins>To minimize the potential for errors, C++ has adopted the convention of using *header files* to contain declarations. You make the declarations in a header file, then use the #include directive in every .cpp file or other header file that requires that declaration. The #include directive inserts a copy of the header file directly into the .cpp file prior to compilation.</ins>
 
 > [!NOTE]
 > In Visual Studio 2019, the C++20 *modules* feature is introduced as an improvement and eventual replacement for header files. For more information, see [Overview of modules in C++](modules-cpp.md).
@@ -37,9 +37,9 @@ namespace N
 }
 ```
 
-Next, create an implementation file (typically with a .cpp or similar extension). We'll call the file my_class.cpp and provide a definition for the member declaration. We add an `#include` directive for "my_class.h" file in order to have the my_class declaration inserted at this point in the .cpp file, and we include `<iostream>` to pull in the declaration for `std::cout`. Note that quotes are used for header files in the same directory as the source file, and angle brackets are used for standard library headers. Also, many standard library headers do not have .h or any other file extension.
+Next, create an implementation file (typically with a .cpp or similar extension). We'll call the file my_class.cpp and provide a definition for the member declaration. We add an `#include` directive for "my_class.h" file in order to have the my_class declaration inserted at this point in the .cpp file, and we include `<iostream>` to pull in the declaration for `std::cout`. <ins>Note that quotes are used for header files in the same directory as the source file, and angle brackets are used for standard library headers.</ins> Also, many standard library headers do not have .h or any other file extension.
 
-In the implementation file, we can optionally use a **`using`** statement to avoid having to qualify every mention of "my_class" or "cout" with "N::" or "std::".  Don't put **`using`** statements in your header files!
+In the implementation file, we can optionally use a **`using`** statement to avoid having to qualify every mention of "my_class" or "cout" with "N::" or "std::".  <ins>Don't put **`using`** statements in your header files!</ins>
 
 ```cpp
 // my_class.cpp
@@ -55,7 +55,7 @@ void my_class::do_something()
 }
 ```
 
-Now we can use `my_class` in another .cpp file. We #include the header file so that the compiler pulls in the declaration. All the compiler needs to know is that my_class is a class that has a public member function called `do_something()`.
+Now we can use `my_class` in another .cpp file. We #include the header file so that the compiler pulls in the declaration. <ins>All the compiler needs to know is that my_class is a class that has a public member function called `do_something()`.</ins>
 
 ```cpp
 // my_program.cpp
@@ -71,11 +71,11 @@ int main()
 }
 ```
 
-After the compiler finishes compiling each .cpp file into .obj files, it passes the .obj files to the linker. When the linker merges the object files it finds exactly one definition for my_class; it is in the .obj file produced for my_class.cpp, and the build succeeds.
+<ins>After the compiler finishes compiling each .cpp file into .obj files, it passes the .obj files to the linker. When the linker merges the object files it finds exactly one definition for my_class; it is in the .obj file produced for my_class.cpp, and the build succeeds.</ins>
 
 ## Include guards
 
-Typically, header files have an *include guard* or a `#pragma once` directive to ensure that they are not inserted multiple times into a single .cpp file.
+<ins>Typically, header files have an *include guard* or a `#pragma once` directive to ensure that they are not inserted multiple times into a single .cpp file.</ins>
 
 ```cpp
 // my_class.h
@@ -96,7 +96,7 @@ namespace N
 
 ## What to put in a header file
 
-Because a header file might potentially be included by multiple files, it cannot contain definitions that might produce multiple definitions of the same name. The following are not allowed, or are considered very bad practice:
+<ins>Because a header file might potentially be included by multiple files, it cannot contain definitions that might produce multiple definitions of the same name. The following are not allowed, or are considered very bad practice:</ins>
 
 - built-in type definitions at namespace or global scope
 - non-inline function definitions
